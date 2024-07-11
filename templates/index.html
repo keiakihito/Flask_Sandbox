@@ -3,11 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>New Flask Project</title>
+    <title>Flask Animation Examples</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
 </head>
 <body>
-    <div id="animate-me"></div>
-    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+<div id="animate-me">Move Right</div>
+<div id="fade-in">Fade In</div>
+<div id="scale-up">Scale Up</div>
+<div id="rotate">Rotate</div>
+<div id="circular-path">Circular Path</div>
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
 </body>
 </html>

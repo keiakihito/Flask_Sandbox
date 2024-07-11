@@ -1,5 +1,38 @@
-#animate-me {
+#animate-me, #fade-in, #scale-up, #rotate, #circular-path {
     width: 100px;
     height: 100px;
+    margin: 20px;
+    display: inline-block;
+    text-align: center;
+    line-height: 100px;
+    font-family: Arial, sans-serif;
+    color: white;
+}
+
+#animate-me {
     background-color: red;
+    position: relative;
+}
+
+#fade-in {
+    background-color: green;
+    opacity: 0;
+}
+
+#scale-up {
+    background-color: blue;
+    transform: scale(1);
+}
+
+#rotate {
+    background-color: purple;
+    transform: rotate(0deg);
+}
+
+#circular-path {
+    background-color: orange;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
