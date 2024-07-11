@@ -1,13 +1,20 @@
 document.addEventListener('DOMContentLoaded', function() {
+    // Hide loader and show content
+    const loader = document.querySelector('.loader');
+    const content = document.querySelector('.content');
+    window.addEventListener('load', function() {
+        loader.style.display = 'none';
+        content.style.display = 'block';
+    });
+
     // Move Right Animation on Click
     const animateMe = document.getElementById('animate-me');
     let isMovedRight = false;
     animateMe.addEventListener('click', function() {
-        animateMe.style.transition = 'transform 2s';
         if (isMovedRight) {
-            animateMe.style.transform = 'translateX(0)';
+            gsap.to(animateMe, {duration: 2, x: 0});
         } else {
-            animateMe.style.transform = 'translateX(100px)';
+            gsap.to(animateMe, {duration: 2, x: 100});
         }
         isMovedRight = !isMovedRight;
     });
@@ -16,11 +23,10 @@ document.addEventListener('DOMContentLoaded', function() {
     const fadeIn = document.getElementById('fade-in');
     let isFadedIn = false;
     fadeIn.addEventListener('click', function() {
-        fadeIn.style.transition = 'opacity 2s';
         if (isFadedIn) {
-            fadeIn.style.opacity = '0';
+            gsap.to(fadeIn, {duration: 2, opacity: 0});
         } else {
-            fadeIn.style.opacity = '1';
+            gsap.to(fadeIn, {duration: 2, opacity: 1});
         }
         isFadedIn = !isFadedIn;
     });
@@ -29,11 +35,10 @@ document.addEventListener('DOMContentLoaded', function() {
     const scaleUp = document.getElementById('scale-up');
     let isScaledUp = false;
     scaleUp.addEventListener('click', function() {
-        scaleUp.style.transition = 'transform 2s';
         if (isScaledUp) {
-            scaleUp.style.transform = 'scale(1)';
+            gsap.to(scaleUp, {duration: 2, scale: 1});
         } else {
-            scaleUp.style.transform = 'scale(1.5)';
+            gsap.to(scaleUp, {duration: 2, scale: 1.5});
         }
         isScaledUp = !isScaledUp;
     });
@@ -42,32 +47,59 @@ document.addEventListener('DOMContentLoaded', function() {
     const rotate = document.getElementById('rotate');
     let isRotated = false;
     rotate.addEventListener('click', function() {
-        rotate.style.transition = 'transform 2s';
         if (isRotated) {
-            rotate.style.transform = 'rotate(0deg)';
+            gsap.to(rotate, {duration: 2, rotation: 0});
         } else {
-            rotate.style.transform = 'rotate(360deg)';
+            gsap.to(rotate, {duration: 2, rotation: 360});
         }
         isRotated = !isRotated;
     });
 
     // Circular Path Animation on Click
     const circularPath = document.getElementById('circular-path');
-    let angle = 0;
     let isAnimating = false;
-    let interval;
+    let tween;
     circularPath.addEventListener('click', function() {
         if (isAnimating) {
-            clearInterval(interval);
-            circularPath.style.transform = 'translate(-50%, -50%)';
+            tween.pause();
+            gsap.to(circularPath, {duration: 0.5, x: 0, y: 0});
         } else {
-            interval = setInterval(() => {
-                angle += 0.05;
-                const x = 100 * Math.cos(angle);
-                const y = 100 * Math.sin(angle);
-                circularPath.style.transform = `translate(${x}px, ${y}px)`;
-            }, 20);
+            tween = gsap.to(circularPath, {duration: 20, x: 100, y: 100, repeat: -1, ease: "none"});
         }
         isAnimating = !isAnimating;
+    });
+
+    // Initialize Swiper
+    var swiper = new Swiper('.swiper-container', {
+        pagination: {
+            el: '.swiper-pagination',
+        },
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+    });
+
+    // GSAP Basic Animations
+    const box1 = document.getElementById('animate-me');
+    gsap.to(box1, {duration: 2, x: 100});
+
+    // GSAP Sequence Animation
+    const box2 = document.getElementById('fade-in');
+    gsap.timeline()
+        .to(box2, {duration: 1, x: 100})
+        .to(box2, {duration: 1, y: 100})
+        .to(box2, {duration: 1, rotation: 360});
+
+    // GSAP ScrollTrigger Animation
+    gsap.registerPlugin(ScrollTrigger);
+    gsap.to("#scale-up", {
+        scrollTrigger: {
+            trigger: "#scale-up",
+            start: "top center",
+            end: "top 100px",
+            scrub: true,
+        },
+        x: 500,
     });
 });
